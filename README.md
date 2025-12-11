@@ -61,5 +61,14 @@ This project uses the CICIDS2017 dataset provided by the Canadian Institute for 
 
 This work is based on research into deep learning for NIDS, specifically analyzing the impact of hidden layers and hybrid architectures.
 
-- P. Pavithralakshmi et al., "Anomaly Detection for Network Traffic Using Autoencoder," International Journal of Research Publication and Reviews, 2025.
-- S. Alhassan et al., "Analyzing Autoencoder-Based Intrusion Detection System Performance," Journal of Information Security and Cybercrimes Research, 2023.
+[1] P. Pavithralakshmi et al., ”Anomaly Detection for Network Traffic Using Autoencoder,” International Journal of Research Publication and Reviews, vol. 6, no. 5, pp. 10168–10173, May 2025.
+
+[2] R. Agrawal, ”Complete Guide to Anomaly Detection with AutoEncoders using Tensorflow,” Data Science Blogathon, Jan 2022.
+
+[3] H. Liao et al., ”A Survey of Deep Learning Technologies for Intrusion Detection in Internet of Things,” IEEE Access, Jan 2024.
+
+[4] S. Selvakumar, M. Sivaanandh, K. Muneeswaran, and B. Lakshmanan, ”Ensemble of feature augmented convolutional neural network and deep autoencoder for efficient detection of network attacks,” Scientific Reports, vol. 15, no. 4267, 2025.
+
+[5] Z. M. Khan, ”Network Intrusion Detection Utilizing Autoencoder Neural Networks,” Communications on Applied Nonlinear Analysis, vol. 31, no. 3s, 2024.
+
+[6] S. Alhassan et al., ”Analyzing Autoencoder-Based Intrusion Detection System Performance: Impact of Hidden Layers,” Journal of Information Security and Cybercrimes Research, vol. 6, no. 2, pp. 105–115, Dec 2023.
