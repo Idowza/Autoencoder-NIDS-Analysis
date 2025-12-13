@@ -1,0 +1,103 @@
+This was the output:
+
+Loading real dataset from ~/Downloads/project/cicids2017_cleaned.csv...
+Columns found: ['Destination Port', 'Flow Duration', 'Total Fwd Packets', 'Total Length of Fwd Packets', 'Fwd Packet Length Max', 'Fwd Packet Length Min', 'Fwd Packet Length Mean', 'Fwd Packet Length Std', 'Bwd Packet Length Max', 'Bwd Packet Length Min', 'Bwd Packet Length Mean', 'Bwd Packet Length Std', 'Flow Bytes/s', 'Flow Packets/s', 'Flow IAT Mean', 'Flow IAT Std', 'Flow IAT Max', 'Flow IAT Min', 'Fwd IAT Total', 'Fwd IAT Mean', 'Fwd IAT Std', 'Fwd IAT Max', 'Fwd IAT Min', 'Bwd IAT Total', 'Bwd IAT Mean', 'Bwd IAT Std', 'Bwd IAT Max', 'Bwd IAT Min', 'Fwd Header Length', 'Bwd Header Length', 'Fwd Packets/s', 'Bwd Packets/s', 'Min Packet Length', 'Max Packet Length', 'Packet Length Mean', 'Packet Length Std', 'Packet Length Variance', 'FIN Flag Count', 'PSH Flag Count', 'ACK Flag Count', 'Average Packet Size', 'Subflow Fwd Bytes', 'Init_Win_bytes_forward', 'Init_Win_bytes_backward', 'act_data_pkt_fwd', 'min_seg_size_forward', 'Active Mean', 'Active Max', 'Active Min', 'Idle Mean', 'Idle Max', 'Idle Min', 'Attack Type']
+WARNING: 'Label' column not found by name. Using the LAST column as target.
+Selected Target Column: 'Attack Type'
+Data Loaded. Shape: (2520751, 53)
+Class Distribution:
+ Label
+Normal Traffic    2095057
+DoS                193745
+DDoS               128014
+Port Scanning       90694
+Brute Force          9150
+Web Attacks          2143
+Bots                 1948
+Name: count, dtype: int64
+
+--- Starting Preprocessing ---
+Target Column: 'Label'
+Unique values before mapping: ['Normal Traffic' 'Port Scanning' 'Web Attacks' 'Brute Force' 'DDoS']
+
+Label Encoding Summary:
+ - Normal Samples (0): 2095057
+ - Attack Samples (1): 425694
+Updated INPUT_DIM to: 52
+
+Data Ready:
+ - Normal samples for AE training: (1676045, 52)
+ - Test set shape: (504151, 52)
+
+ Building and Training Baseline Autoencoder...
+Epoch 1/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m18s[0m 722us/step - loss: 6.9821e-04 - val_loss: 7.3644e-05
+Epoch 2/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 712us/step - loss: 5.0338e-05 - val_loss: 3.4690e-05
+Epoch 3/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 713us/step - loss: 3.6980e-05 - val_loss: 2.7086e-05
+Epoch 4/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 711us/step - loss: 3.1122e-05 - val_loss: 2.6297e-05
+Epoch 5/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 723us/step - loss: 2.7480e-05 - val_loss: 2.0652e-05
+Epoch 6/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 722us/step - loss: 2.4711e-05 - val_loss: 2.2706e-05
+Epoch 7/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 726us/step - loss: 2.3239e-05 - val_loss: 1.9087e-05
+Epoch 8/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 717us/step - loss: 2.2824e-05 - val_loss: 1.8036e-05
+Epoch 9/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 717us/step - loss: 2.0635e-05 - val_loss: 1.7983e-05
+Epoch 10/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 719us/step - loss: 1.9610e-05 - val_loss: 1.5124e-05
+Epoch 11/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 728us/step - loss: 1.9565e-05 - val_loss: 1.5095e-05
+Epoch 12/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 714us/step - loss: 1.9499e-05 - val_loss: 1.4257e-05
+Epoch 13/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 709us/step - loss: 1.8569e-05 - val_loss: 1.4926e-05
+Epoch 14/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 722us/step - loss: 1.8570e-05 - val_loss: 1.4332e-05
+Epoch 15/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 715us/step - loss: 1.7378e-05 - val_loss: 1.6043e-05
+Epoch 16/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 727us/step - loss: 1.7663e-05 - val_loss: 1.3081e-05
+Epoch 17/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 713us/step - loss: 1.7617e-05 - val_loss: 1.3974e-05
+Epoch 18/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 731us/step - loss: 1.6327e-05 - val_loss: 1.3957e-05
+Epoch 19/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 730us/step - loss: 1.6631e-05 - val_loss: 1.6212e-05
+Epoch 20/20
+[1m23570/23570[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m17s[0m 719us/step - loss: 1.6505e-05 - val_loss: 1.8599e-05
+Calculating reconstruction errors...
+[1m15755/15755[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m6s[0m 391us/step
+Anomaly Threshold: 0.0005
+
+ Training Novelty Hybrid Model (AE + Random Forest)...
+[1m63019/63019[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m22s[0m 349us/step
+[1m15755/15755[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m5s[0m 347us/step
+Original Feature Shape: (2016600, 52)
+Encoded Feature Shape: (2016600, 8) (Dimensionality Reduced)
+
+ Comparative Evaluation...
+--- Baseline (Reconstruction Error) Performance ---
+Accuracy:  0.9129
+Precision: 0.9710
+Recall:    0.4991
+F1-Score:  0.6593
+
+Confusion Matrix:
+ [[417743   1269]
+ [ 42646  42493]]
+------------------------------
+--- Hybrid (Encoder + RF) Performance ---
+Accuracy:  0.9935
+Precision: 0.9805
+Recall:    0.9811
+F1-Score:  0.9808
+
+Confusion Matrix:
+ [[417347   1665]
+ [  1607  83532]]
+------------------------------

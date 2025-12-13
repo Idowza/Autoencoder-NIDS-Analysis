@@ -30,15 +30,33 @@ The project investigates the "capability gap" in traditional signature-based Int
 
 ## 📂 Dataset
 
-This project uses the CICIDS2017 dataset provided by the Canadian Institute for Cybersecurity.
+This project uses the **CICIDS2017: Cleaned & Preprocessed** dataset.
 
-- **Note:** Due to file size limits, the raw dataset is not included in this repo.
-- **Download:** You can access the dataset [here](https://www.unb.ca/cic/datasets/ids-2017.html).
+- **Source:** [Kaggle - CICIDS2017: Cleaned & Preprocessed](https://www.kaggle.com/datasets/ericanacletoribeiro/cicids2017-cleaned-and-preprocessed)
+- **Note:** Due to file size limits, the dataset is not included in this repo. Please download it from the link above.
+
+### Data Context
+- **Source Validation:** By using the Ericanacleto version of CICIDS2017, we avoided the common "NaN" and "Infinity" pitfalls of the raw dataset.
+- **Class Distribution:** The dataset is composed of ~2.1 million Normal samples and ~425k Attack samples.
+  - **Significance:** This 5:1 ratio is a realistic representation of network traffic (mostly normal, some attacks). It confirms that the high Accuracy (99.35%) in the Hybrid model is not just a result of guessing "Normal" every time (which would only yield ~83%), but actually detecting the attacks.
 
 ## 📊 Results Summary
 
-- **Baseline (Reconstruction Error):** Effective at identifying gross anomalies but prone to higher false positive rates on complex benign traffic.
-- **Hybrid (Novelty):** Demonstrated improved separation between classes, leveraging the latent space representations to achieve higher F1-Scores.
+### Quantitative Comparison: The Hybrid Victory
+
+The most powerful argument for this project lies in the Recall and the Confusion Matrix.
+
+| Metric | Baseline (Autoencoder Only) | Hybrid (AE + Random Forest) | Improvement |
+| :--- | :--- | :--- | :--- |
+| **Accuracy** | 91.29% | 99.35% | +8.06% |
+| **Precision** | 97.10% | 98.05% | +0.95% |
+| **Recall** | 49.91% | 98.11% | +48.2% (Massive) |
+| **F1-Score** | 0.6593 | 0.9808 | +0.3215 |
+
+### The Confusion Matrix Deep Dive
+
+- **Baseline Failure:** The baseline model had **42,646 False Negatives** (attacks misclassified as normal). It essentially flipped a coin on detecting attacks (49.9% Recall).
+- **Hybrid Success:** The Hybrid model reduced False Negatives to just **1,607**. It successfully detected **98.1%** of the attacks that the baseline missed.
 
 ## 🔧 Usage
 
@@ -49,13 +67,40 @@ This project uses the CICIDS2017 dataset provided by the Canadian Institute for 
 
 2. **Install dependencies:**
    ```bash
-   pip install numpy pandas tensorflow scikit-learn matplotlib seaborn
+   pip install numpy pandas matplotlib seaborn tensorflow scikit-learn
    ```
 
-3. **Run the Jupyter Notebook:**
-   ```bash
-   jupyter notebook analysis.ipynb
-   ```
+3. **Run the analysis:**
+   - Open `analysis_realdata.ipynb` in Jupyter Notebook or VS Code.
+   - Update the `DATASET_PATH` variable to point to your local copy of the CICIDS2017 dataset.
+   - Run the cells to execute the training and evaluation pipeline.
+
+   *Note: `analysis_test.ipynb` is provided for testing purposes with synthetic/sample data.*
+
+## 📈 Visualizations
+
+### Training History
+![Autoencoder Training History](Autoencoder%20Training%20History.png)
+
+**Observation:** The Blue line (Training Loss) and Orange line (Validation Loss) drop precipitously in the first 2 epochs and flatten out near zero (1.6×10−5).
+
+**Analysis:** The training history demonstrates that the Autoencoder architecture was highly effective at learning the statistical baseline of 'Normal Traffic'. The rapid convergence and the lack of divergence between training and validation loss indicate that the model did not overfit. It successfully compressed the 52 input features into the 8-dimensional latent space with minimal information loss.
+
+### Reconstruction Error Distribution
+![Distribution of Reconstruction Errors](Distribution%20of%20Reconstruction%20Errors%20(Baseline%20Model).png)
+
+**Observation:**
+- **Green Region (Normal):** Extremely sharp, narrow spike on the far left (Error ≈ 0.0). This confirms the model perfectly reconstructs normal traffic.
+- **Red Region (Attack):** Distributed across the x-axis. While some attacks have high error (right side), a massive portion of the red distribution overlaps directly with the green spike on the left.
+
+**Analysis:** The histogram reveals the critical limitation of the Baseline Unsupervised approach. While the Autoencoder successfully flagged gross anomalies (high reconstruction error on the right), a significant volume of attack traffic produced low reconstruction errors, indistinguishable from normal traffic (the overlapping region on the left). This confirms the 'Reliability Debate' (Alhassan et al.)—that Autoencoders can generalize too well, reconstructing attacks as if they were normal.
+
+
+## 🏁 Conclusion
+
+This research validates the hypothesis that unsupervised reconstruction error alone is insufficient for high-reliability Network Intrusion Detection on modern datasets like CICIDS2017. The Baseline Autoencoder failed to distinguish nearly 50% of attacks because they statistically resembled normal traffic (low reconstruction error).
+
+However, the Novel Hybrid Model demonstrated that the Autoencoder is an exceptional feature extractor. By discarding the reconstruction error and instead feeding the compressed latent space representations into a Random Forest classifier, the system achieved a near-perfect detection rate (98.11% Recall). This proves that while the magnitude of the error may be similar for some attacks, their location in the high-dimensional latent space is distinct enough for a supervised classifier to separate them from benign traffic.
 
 ## 📝 Citation & References
 
